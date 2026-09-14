@@ -1,31 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/axios.js";
+import { useAuth } from "../../zustand/authStore.js";
 
 export default function Header() {
-    const [info, setInfo] = useState();
-
-  
-
-    useEffect(() => {
-        async function fetchData() {
-            const accessToken = localStorage.getItem("accessToken");
-            console.log({ accessToken });
-
-            const res = await api.post("/Users/getProfile", undefined, {
-                headers: {
-                    Authorization: accessToken,
-                },
-            });
-
-            console.log({ res });
-
-            setInfo(res.data.content)
-        }
-        fetchData();
-    }, []);
-
-    const navigate = useNavigate();
+    const userInfo = useAuth((state) => state.userInfo);
+    const logout = useAuth((state) => state.logout);
 
     return (
         <header className="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-6 shadow-sm">
@@ -53,16 +30,15 @@ export default function Header() {
                     <img src="https://i.pravatar.cc/100" alt="avatar" className="h-10 w-10 rounded-full object-cover" />
 
                     <div className="hidden sm:block">
-                        <p className="text-sm font-semibold text-gray-800">{info?.name}</p>
-                        <p className="text-xs text-gray-500">{info?.email}</p>
+                        <p className="text-sm font-semibold text-gray-800">{userInfo?.name}</p>
+                        <p className="text-xs text-gray-500">{userInfo?.email}</p>
                     </div>
                 </div>
 
                 {/* Logout */}
                 <button
                     onClick={() => {
-                        localStorage.removeItem("accessToken");
-                        navigate("/login");
+                        logout();
                     }}
                     className="rounded-lg bg-red-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-600"
                 >

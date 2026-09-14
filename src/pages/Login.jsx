@@ -1,11 +1,12 @@
-import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import api from "../api/axios.js";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../zustand/authStore.js";
 
 export default function Login() {
+    const getInfo = useAuth((state) => state.getInfo);
     const [notification, setNotification] = useState({ type: "", message: "" });
     const navigate = useNavigate();
 
@@ -18,16 +19,17 @@ export default function Login() {
             try {
                 console.log("[👉 formik values]", values);
                 const res = await api.post("/Users/signin", values);
-
                 console.log({ res });
 
-                localStorage.setItem("accessToken", res.data.content.accessToken)
+                localStorage.setItem("accessToken", res.data.content.accessToken);
 
                 setNotification({
                     type: "success",
                     message: res.data.message,
                 });
-                
+
+                await getInfo();
+
                 // di chuyển về home
                 navigate("/");
             } catch (error) {
