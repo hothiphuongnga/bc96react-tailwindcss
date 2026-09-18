@@ -8,6 +8,7 @@ const api = axios.create({
 });
 
 // Add a request interceptor
+// gửi đi
 api.interceptors.request.use(
     function (config) {
         // Do something before request is sent
@@ -26,6 +27,7 @@ api.interceptors.request.use(
 );
 
 // Add a response interceptor
+// nhận kết qủa từ api
 api.interceptors.response.use(
     function (response) {
         // Any status code that lie within the range of 2xx cause this function to trigger

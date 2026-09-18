@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import { useAuth } from "./zustand/authStore.js";
+import ManagerProduct from "./pages/Admin/ManagerProduct.jsx";
 // import heroImg from './assets/hero.png'
 
 function App() {
@@ -19,18 +20,23 @@ function App() {
     
     return (
         <Routes>
+            {/* Layout web user */}
             <Route path="/" element={<MainLayout />}>
                 <Route index element={<Home />} />
-                <Route path="/game" element={<Game />} />
+                <Route path="game" element={<Game />} />
             </Route>
 
+            {/* Layout đăng ký đăng nhập */}
             <Route element={<AuthLayout />}>
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
             </Route>
 
+            {/* layout Admin */}
             <Route path="/admin" element={<AdminLayout />}>
                 <Route index element={<Dashboard />} />
+                <Route path="products" element={<ManagerProduct />} /> 
+
             </Route>
         </Routes>
     );

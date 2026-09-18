@@ -24,5 +24,6 @@ export const useGame = create((set) => {
         resetGame: () => {
             set({ hp: 100 });
         },
+
     };
 });

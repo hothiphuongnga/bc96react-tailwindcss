@@ -1,29 +1,38 @@
-import React from 'react'
-import { Outlet } from 'react-router-dom'
-import Sidebar from './Sidebar'
+import { Outlet } from "react-router-dom";
+import Sidebar from "./Sidebar";
 
 export default function AdminLayout() {
   return (
-     <div className="d-flex min-vh-100">
-      {/* SIDEBAR */}
-     <Sidebar />
+    <div className="flex min-h-screen bg-slate-100">
+      <Sidebar />
 
-      {/* MAIN CONTENT */}
-      <div className="flex-grow-1 bg-light">
+      <div className="flex min-w-0 flex-1 flex-col">
         {/* HEADER */}
-        <nav className="navbar bg-white shadow-sm px-4">
-          <span className="navbar-brand mb-0 h1">Dashboard</span>
+        <header className="flex h-16 items-center justify-between border-b border-slate-200 bg-white px-6">
+          <div>
+            <h2 className="text-lg font-semibold text-slate-800">
+              Dashboard
+            </h2>
+          </div>
 
-          <button className="btn btn-outline-danger">
+          <button
+            className="
+              rounded-lg border border-slate-200
+              px-4 py-2
+              text-sm font-medium text-slate-700
+              transition
+              hover:bg-slate-100
+            "
+          >
             Đăng xuất
           </button>
-        </nav>
+        </header>
 
-        {/* NỘI DUNG ROUTER */}
-        <main className="p-4">
+        {/* PAGE CONTENT */}
+        <main className="flex-1 overflow-auto p-6">
           <Outlet />
         </main>
       </div>
     </div>
-  )
+  );
 }

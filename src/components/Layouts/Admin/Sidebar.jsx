@@ -1,34 +1,108 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
+  const menuClass = ({ isActive }) =>
+    `
+      flex items-center gap-3
+      rounded-lg px-3 py-2.5
+      text-sm font-medium
+      transition-all duration-200
+      ${
+        isActive
+          ? "bg-blue-600 text-white shadow-md shadow-blue-950/20"
+          : "text-slate-300 hover:bg-slate-800 hover:text-white"
+      }
+    `;
+
   return (
-    <div className="bg-dark text-white p-3" style={{ width: "250px" }}>
-      <h4 className="text-center mb-4">ADMIN</h4>
+    <aside className="flex min-h-screen w-64 flex-col bg-slate-950 text-white">
+      {/* LOGO */}
+      <div className="flex h-16 items-center border-b border-slate-800 px-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 font-bold">
+            A
+          </div>
 
-      <ul className="nav nav-pills flex-column gap-2">
-        <li className="nav-item">
+          <div>
+            <h1 className="text-sm font-semibold">
+              Admin Panel
+            </h1>
+
+            <p className="text-xs text-slate-500">
+              Management System
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* MENU */}
+      <div className="flex-1 overflow-y-auto px-3 py-5">
+        <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-500">
+          Menu chính
+        </p>
+
+        <nav className="space-y-1">
+          {/* DASHBOARD */}
           <NavLink
-            to="/"
-            className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}
+            to="/admin"
+            end
+            className={menuClass}
           >
-            Trang chủ
+            <span>Dashboard</span>
           </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink to="/admin" end             
-          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}>
-            Admin
-          </NavLink>
-        </li>
 
-        <li className="nav-item">
-          <NavLink to="/admin/setting" 
-          className={({ isActive }) => `nav-link ${isActive ? "active" : ""}`}>
-            Cài đặt
+          {/* SẢN PHẨM */}
+          <NavLink
+            to="/admin/products"
+            className={menuClass}
+          >
+            <span>Sản phẩm</span>
           </NavLink>
-        </li>
-      </ul>
-    </div>
+
+          {/* NGƯỜI DÙNG */}
+          <NavLink
+            to="/admin/users"
+            className={menuClass}
+          >
+            <span>Người dùng</span>
+          </NavLink>
+
+          {/* ĐƠN HÀNG */}
+          <NavLink
+            to="/admin/orders"
+            className={menuClass}
+          >
+            <span>Đơn hàng</span>
+          </NavLink>
+
+          {/* CÀI ĐẶT */}
+          <NavLink
+            to="/admin/setting"
+            className={menuClass}
+          >
+            <span>Cài đặt</span>
+          </NavLink>
+        </nav>
+      </div>
+
+      {/* USER BOTTOM */}
+      <div className="border-t border-slate-800 p-4">
+        <div className="flex items-center gap-3 rounded-xl bg-slate-900 p-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 font-semibold">
+            AD
+          </div>
+
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-sm font-medium text-white">
+              Administrator
+            </p>
+
+            <p className="truncate text-xs text-slate-500">
+              admin@gmail.com
+            </p>
+          </div>
+        </div>
+      </div>
+    </aside>
   );
 }
